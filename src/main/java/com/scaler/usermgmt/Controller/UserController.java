@@ -1,5 +1,6 @@
 package com.scaler.usermgmt.Controller;
 
+import com.scaler.usermgmt.Dto.Login;
 import com.scaler.usermgmt.Model.User;
 import com.scaler.usermgmt.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,10 @@ public class UserController {
     @Autowired
     UserController(UserService userService){
         this.userService=userService;
+    }
+    @GetMapping(value = "/login")
+    public String login(@RequestBody Login login){
+       return userService.login(login.getName(),login.getPassword());
     }
 
     @GetMapping(value = "/get/{id}")

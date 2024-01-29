@@ -1,5 +1,6 @@
 package com.scaler.usermgmt.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,7 +14,9 @@ public class Address extends BaseModel{
     private Long number;
     private String zipcode;
     @OneToMany(mappedBy = "address",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<User> user;
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JsonIgnore
     private GeoLocation geolocation;
 }

@@ -22,6 +22,13 @@ public class UserServiceImpl  implements UserService{
         this.nameRepository = nameRepository;
         this.geoLocationRepository = geoLocationRepository;
     }
+
+    @Override
+    public String login(String name, String password) {
+        String s="124";
+        return s+" "+ name+ " "+ password;
+    }
+
     @Override
     public User getUser(Long id) {
         Optional<User> userOptional=userRepository.findById(id);
@@ -39,12 +46,12 @@ public class UserServiceImpl  implements UserService{
 
     @Override
     public List<User> getLimitedUsers(Long limit) {
-        return null;
+        return userRepository.findLimitedUsers(limit);
     }
 
     @Override
     public List<User> getSortedUsers(String sortType) {
-        return null;
+        return userRepository.findUsersAndSortById(sortType);
     }
 
     @Override
@@ -55,11 +62,16 @@ public class UserServiceImpl  implements UserService{
 
     @Override
     public User updateUser(User user) {
+        User user2=userRepository.save(user);
         return null;
     }
 
     @Override
     public User deleteUser(Long id) {
-        return null;
+        Optional<User> deletedUser=userRepository.findById(id);
+        if(deletedUser.isEmpty()){
+            return null;//exception later will be written
+        }
+        return deletedUser.get();
     }
 }
